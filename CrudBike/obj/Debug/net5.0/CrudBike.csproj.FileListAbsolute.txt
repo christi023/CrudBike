@@ -71,3 +71,5 @@ C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\ref\CrudBike.dll
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\CrudBike.pdb
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\CrudBike.genruntimeconfig.cache
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Make\Bikes.cshtml.g.cs
+C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Make\Index.cshtml.g.cs
+C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Make\Create.cshtml.g.cs

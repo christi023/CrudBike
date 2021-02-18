@@ -53,9 +53,16 @@ namespace CrudBike
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
+          /*   endpoints.MapControllerRoute(
+                name: "ByYearMonth",
+                 pattern: "make/bikes/{year:int}/{month:int}",
+                defaults: new { controller = "make", action = "ByYearMonth" }); */
+
+
+            endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }

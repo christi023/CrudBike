@@ -42,9 +42,9 @@ namespace CrudBike.Controllers
             return View(make);
         }
 
-        //HTTP Get Method
+        //HTTP Get Method - retrieve the Brand / Make
         [HttpGet]
-      /*public IActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var make = _db.Makes.Find(id);
             if (make == null)
@@ -53,37 +53,24 @@ namespace CrudBike.Controllers
             }
 
             return View(make);
-        } */
-        public async Task<IActionResult> Edit(int id)
-        {
-            var make = await _db.Makes.FindAsync(id);
-            if (make == null)
-            {
-                return NotFound();
-            }
+        }
 
-       //   var make = await  _db.Makes.FindAsync(id);
-            if (make == null)
+        // save changes after updating
+        [HttpPost]
+        public IActionResult Edit(Make make)
+        {
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                _db.Update(make);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
             }
             return View(make);
         }
-        
-/*
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> Delete(int id)
-        {
-         
-            var make = await _db.Makes.FindAsync(id);
-            _db.Makes.Remove(make);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-
-         
-        } */
 
 
+        // Delete Make or Brand of Motocycle
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var make = _db.Makes.Find(id);

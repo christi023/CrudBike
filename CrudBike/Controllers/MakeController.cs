@@ -69,36 +69,31 @@ namespace CrudBike.Controllers
             }
             return View(make);
         }
-        /*
-                // Delete
-                [HttpPost]
-                public async Task<IActionResult> Delete(int id)
-                {
-                    var make = _db.Makes.Find(id);
-                    if(make == null)
-                    {
-                 return NotFound();
-                    }
-
-                    _db.Makes.Remove(make);
-                    _db.SaveChanges();
-                    return RedirectToAction(nameof(Index));
-
-                }*/
-
-
-
+        
+/*
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            System.Diagnostics.Debug.WriteLine("Inside Delete method");
-
+         
             var make = await _db.Makes.FindAsync(id);
             _db.Makes.Remove(make);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
          
+        } */
+
+
+        public IActionResult Delete(int id)
+        {
+            var make = _db.Makes.Find(id);
+            if(make==null)
+            {
+                return NotFound();
+            }
+            _db.Makes.Remove(make);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

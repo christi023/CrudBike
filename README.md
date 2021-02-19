@@ -23,3 +23,9 @@
 ![Screenshot (46)](https://user-images.githubusercontent.com/48160897/108199732-bcc5c500-711d-11eb-8d8a-f251db234f2e.png)
 
 
+## Screenshot belows shows how CRUD operation looks 
+
+![Screenshot (50)](https://user-images.githubusercontent.com/48160897/108520935-80d06280-72cb-11eb-8523-40a0e29415d4.png)
+
+
+

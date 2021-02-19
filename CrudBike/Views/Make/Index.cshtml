@@ -1,10 +1,10 @@
-﻿@model  IEnumerable<CrudBike.Models.Make>
+﻿@model IEnumerable<CrudBike.Models.Make>
 
 <br />
 
 <div class="row">
     <div class="col-6">
-        <h2 class="text-info">Brands of Vehicles</h2>
+        <h2 class="text-info">Brands of Motor Cycles</h2>
     </div>
     <div class="col-6 text-right">
         <a class="btn btn-info" asp-action="Create">Add New Brand</a>
@@ -18,20 +18,20 @@
             <th> @Html.DisplayNameFor(m => m.Name)</th>
             <th></th>
         </tr>
-        @foreach(var item in Model)
+        @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @Html.DisplayFor(m => item.Name)
-        </td>
-        <td class="text-right">
-            <div class="btn-group" role="group">
-        <a type="button" class="btn btn-primary" href="@Url.Action("Edit/"+item.Id)">Edit</a>
-        <a type="button" class="btn btn-primary" href="@Url.Action("Edit/"+item.Id)">Delete</a>
-            </div>
-        </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td class="text-right">
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-primary" href="@Url.Action("Edit")/@item.Id">Edit</a>
+                        <a type="button" class="btn btn-primary" href="@Url.Action("Delete")/@item.Id">Delete</a>
+                    </div>
+                </td>
 
-    </tr>
+            </tr>
         }
 
     </table>

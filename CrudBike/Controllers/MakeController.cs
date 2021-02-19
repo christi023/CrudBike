@@ -9,27 +9,8 @@ using CrudBike.AppDBContext;
 namespace CrudBike.Controllers
 {
     public class MakeController : Controller
-    {
-       /*
-        // makes/bikes
-        [Route("Make")]
-        [Route("Make/Bikes")]
-        public IActionResult Bikes()
-        {
-
-     Make make = new Make { Id = 1, Name = "Harley Davidson" };
-            return View(make);
-        }
-
-       [Route("make/bikes/{year:int}/{month:int}")] 
-
-        // Adding the new action method from Startup.cs
-        public IActionResult ByYearMonth(int year, int month)
-        {
-            return Content(year + ";" + month);
-        } 
-       */
-
+    { // CRUD Operations for Brands = Makes
+      
         // return a list of makes/brands that will be rendered in the table
         private readonly BikeDbContext _db;
         public MakeController(BikeDbContext db)
@@ -59,6 +40,65 @@ namespace CrudBike.Controllers
             }
             // if not valid
             return View(make);
+        }
+
+        //HTTP Get Method
+        [HttpGet]
+      /*public IActionResult Edit(int id)
+        {
+            var make = _db.Makes.Find(id);
+            if (make == null)
+            {
+                return NotFound();
+            }
+
+            return View(make);
+        } */
+        public async Task<IActionResult> Edit(int id)
+        {
+            var make = await _db.Makes.FindAsync(id);
+            if (make == null)
+            {
+                return NotFound();
+            }
+
+       //   var make = await  _db.Makes.FindAsync(id);
+            if (make == null)
+            {
+                return NotFound();
+            }
+            return View(make);
+        }
+        /*
+                // Delete
+                [HttpPost]
+                public async Task<IActionResult> Delete(int id)
+                {
+                    var make = _db.Makes.Find(id);
+                    if(make == null)
+                    {
+                 return NotFound();
+                    }
+
+                    _db.Makes.Remove(make);
+                    _db.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+
+                }*/
+
+
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            System.Diagnostics.Debug.WriteLine("Inside Delete method");
+
+            var make = await _db.Makes.FindAsync(id);
+            _db.Makes.Remove(make);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+         
         }
     }
 }

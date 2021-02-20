@@ -36,5 +36,26 @@ namespace CrudBike.Controllers
 
             return View(model);
         }
+
+        // Create action method 
+        public IActionResult Create()
+        {
+            return View(ModelVM);
+        }
+
+        //  create the post method
+        [HttpPost, ActionName("Create")]
+      
+        public IActionResult CreatePost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(ModelVM);
+            }
+            _db.Models.Add(ModelVM.Model);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index)); // send user to index page 
+        }
+
     }
 }

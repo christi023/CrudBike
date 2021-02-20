@@ -75,3 +75,4 @@ C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Make\Ind
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Make\Create.cshtml.g.cs
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Make\Edit.cshtml.g.cs
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Model\Index.cshtml.g.cs
+C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Model\Create.cshtml.g.cs

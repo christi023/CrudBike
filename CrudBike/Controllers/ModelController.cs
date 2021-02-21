@@ -57,5 +57,46 @@ namespace CrudBike.Controllers
             return RedirectToAction(nameof(Index)); // send user to index page 
         }
 
+        // Edit action
+        public IActionResult Edit(int id)
+        {
+            // This Id we will reciecve from the input parameter of Index page
+            ModelVM.Model = _db.Models.Include(m => m.Make).SingleOrDefault(m => m.Id == id);
+            if(ModelVM.Model == null)
+            {
+                return NotFound();
+            }
+            return View(ModelVM);
+        }
+
+        // Edit with the post method
+        [HttpPost, ActionName("Edit")]
+        public IActionResult EditPost()
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(ModelVM);
+             }
+
+            _db.Update(ModelVM.Model);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index)); // redirects user to index page
+        }
+
+        // Delete method
+        [HttpPost]
+        public IActionResult Delete (int id)
+        {
+            Model model = _db.Models.Find(id);
+            if(model == null)
+            {
+                return NotFound();
+            }
+
+            _db.Models.Remove(model);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

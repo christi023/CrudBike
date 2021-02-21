@@ -1,8 +1,9 @@
 ﻿@model CrudBike.Models.ViewModels.ModelViewModel
 
 <br />
-<h2 class="text-info">Model MotorCycle </h2>
-<form method="post" action="Create">
+<h2 class="text-info">Edit Model MotorCycle </h2>
+<form method="post" action="Edit">
+    <input hidden asp-for="Model.Id" />
 
     <div class="form-group row">
         <div class="col-2">
@@ -20,12 +21,14 @@
         <div class="col-4">
             <input asp-for="Model.Name" class="form-control" />
         </div>
-        </div>
-        <br />
+    </div>
+    <br />
 
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Create" />
-            <a asp-action="Index" class="btn btn-success">Back</a>
-        </div>   
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+
+
 
 </form>

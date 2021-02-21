@@ -1,4 +1,5 @@
 ﻿@model CrudBike.Models.ViewModels.ModelViewModel
+@using CrudBike.Extensions
 
 <br />
 <h2 class="text-info">Edit Model MotorCycle </h2>
@@ -10,7 +11,7 @@
             <label asp-for="Makes"></label>
         </div>
         <div class="col-4">
-            <select asp-for="Model.MakeID" asp-items="Model.CSelectListItem(Model.Makes)" class="form-control"></select>
+            <select asp-for="Model.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control"></select>
         </div>
     </div>
 

@@ -2,6 +2,7 @@ using CrudBike.AppDBContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,12 @@ namespace CrudBike
 
             services.AddDbContext<BikeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
+            // Identity 
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<BikeDbContext>();
+          
+
+            services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,20 +55,17 @@ namespace CrudBike
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                /*   endpoints.MapControllerRoute(
-                      name: "ByYearMonth",
-                       pattern: "make/bikes/{year:int}/{month:int}",
-                      defaults: new { controller = "make", action = "ByYearMonth" }); */
-
-
                 endpoints.MapControllerRoute(
                         name: "default",
-                       pattern: "{controller=Home}/{action=Index}/{id?}");
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapRazorPages();
+
+
                 //  pattern: "{controller=Bike}/{action=Index}/{id?}");
 
 

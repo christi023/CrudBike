@@ -30,10 +30,16 @@ namespace CrudBike
 
             services.AddDbContext<BikeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
+            // Identity User and Role
+              services.AddIdentity<IdentityUser,IdentityRole>()
+                    .AddEntityFrameworkStores<BikeDbContext>()
+                   .AddDefaultUI() // roles
+                   .AddDefaultTokenProviders();   
+
             // Identity 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<BikeDbContext>();
-          
+      /*    services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<BikeDbContext>(); */
+
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
         }

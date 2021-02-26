@@ -203,3 +203,5 @@ C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Areas\Identity
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\MotorBike\Index.cshtml.g.cs
+C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\MotorBike\Create.cshtml.g.cs

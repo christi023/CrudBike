@@ -17,7 +17,8 @@ using Microsoft.Extensions.Logging;
 
 namespace CrudBike.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+      [Authorize(Roles ="Admin")]
+   
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -145,8 +146,9 @@ namespace CrudBike.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                      //     await _signInManager.SignInAsync(user, isPersistent: false);
+                      //    return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index");
                     }
                 }
                 foreach (var error in result.Errors)

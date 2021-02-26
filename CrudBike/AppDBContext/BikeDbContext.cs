@@ -18,8 +18,8 @@ namespace CrudBike.AppDBContext
 
         public DbSet<Make> Makes { get; set; }
         public DbSet<Model> Models { get; set; }
-
-         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<MotorBike> MotorBikes { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
 
     }

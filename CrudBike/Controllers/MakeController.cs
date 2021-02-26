@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrudBike.Models;
 using CrudBike.AppDBContext;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CrudBike.Controllers
 {
+    [Authorize(Roles ="Admin, Executive")] // Authorizes Admin & Executive for Roles handling
     public class MakeController : Controller
     { // CRUD Operations for Brands = Makes
       

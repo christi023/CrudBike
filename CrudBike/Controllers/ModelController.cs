@@ -7,9 +7,11 @@ using CrudBike.Models;
 using CrudBike.AppDBContext;
 using CrudBike.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CrudBike.Controllers
 {
+    [Authorize(Roles = "Admin, Executive")] // Authorizes Admin & Executive for Roles handling
     public class ModelController : Controller
     {
         // dependency injection to access our Db Class

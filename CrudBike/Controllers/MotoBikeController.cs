@@ -8,6 +8,8 @@ using CrudBike.AppDBContext;
 using CrudBike.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 
 namespace CrudBike.Controllers
@@ -17,13 +19,15 @@ namespace CrudBike.Controllers
     {
         // dependency injection to access our Db Class
         private readonly BikeDbContext _db;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         [BindProperty]
         public MotorBikeViewModel MotorBikeVM { get; set; }
 
-        public MotorBikeController(BikeDbContext db)
+        public MotorBikeController(BikeDbContext db, IWebHostEnvironment webHostEnvironment)
         {
             _db = db;
+            _webHostEnvironment = webHostEnvironment;
 
             MotorBikeVM = new MotorBikeViewModel()
             {
@@ -32,7 +36,6 @@ namespace CrudBike.Controllers
               MotorBike = new Models.MotorBike()
             };
         }
-
       
         public IActionResult Index()
         {
@@ -58,6 +61,45 @@ namespace CrudBike.Controllers
             }
             _db.MotorBikes.Add(MotorBikeVM.MotorBike);
             _db.SaveChanges();
+
+            // Save MotorBike Logic =======> Image Upload
+
+            // Get MotorBike id we have saved in Database
+            var MotorBikeID = MotorBikeVM.MotorBike.Id;
+
+            // Get wwwrootPath to save file on server
+            string wwrootPath = _webHostEnvironment.WebRootPath;
+
+            // Get the uploaded files 
+            var files = HttpContext.Request.Form.Files;
+
+            // Get reference of DBSet for the MotorBike we have to save in Database
+            var SavedMotorBike = _db.MotorBikes.Find(MotorBikeID);
+
+            if(files.Count != 0)
+            {
+                var ImagePath = @"images\MotorBike\";
+                //Extract the extension of submitted file
+                var Extension = Path.GetExtension(files[0].FileName);
+
+                //Create the relative image path to be saved in database table 
+                var RelativeImagePath = ImagePath + MotorBikeID + Extension;
+
+                //Create absolute image path to upload the physical file on server
+                var AbsImagePath = Path.Combine(wwrootPath, RelativeImagePath);
+
+                // Upload the file on server
+                using (var fileStream = new FileStream(AbsImagePath, FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+
+                // Set the Image path on database
+                SavedMotorBike.ImagePath = RelativeImagePath;
+
+            }
+            //    var  SavedMotorBike = _db.MotorBikes.Find(MotorBikeID);              
+
             return RedirectToAction(nameof(Index)); // send user to index page 
         }
 

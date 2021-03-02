@@ -56,7 +56,9 @@ namespace CrudBike.Controllers
         public IActionResult CreatePost()
         {
             if (!ModelState.IsValid)
-            {
+            {// validating
+                MotorBikeVM.Makes = _db.Makes.ToList(); // refresh here to get this case if form is submitted without value, we will not get error- Makes + Models
+                MotorBikeVM.Models = _db.Models.ToList(); 
                 return View(MotorBikeVM);
             }
             _db.MotorBikes.Add(MotorBikeVM.MotorBike);
@@ -103,9 +105,9 @@ namespace CrudBike.Controllers
             return RedirectToAction(nameof(Index)); // send user to index page 
         }
 
-        /*
+        
         // Edit action
-        public IActionResult Edit(int id)
+    /*    public IActionResult Edit(int id)
         {
             // This Id we will reciecve from the input parameter of Index page
             ModelVM.Model = _db.Models.Include(m => m.Make).SingleOrDefault(m => m.Id == id);
@@ -128,7 +130,8 @@ namespace CrudBike.Controllers
             _db.Update(ModelVM.Model);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index)); // redirects user to index page
-        } */
+        } 
+    */
 
         // Delete method
         [HttpPost]

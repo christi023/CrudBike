@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using cloudscribe.Pagination.Models;
 
 
 namespace CrudBike.Controllers
@@ -37,11 +38,31 @@ namespace CrudBike.Controllers
             };
         }
       
-        public IActionResult Index()
+        public IActionResult Index2()
         {
             var MotorBikes = _db.MotorBikes.Include(m => m.Make).Include(m => m.Model);
 
             return View(MotorBikes.ToList());
+        }
+
+        // Pagination to create pages
+           public IActionResult Index(int pageNumber=1, int pageSize=2)
+        {
+            int ExcludeRecords = (pageSize * pageNumber) - pageSize;
+
+            var MotorBikes = _db.MotorBikes.Include(m => m.Make).Include(m => m.Model)
+                .Skip(ExcludeRecords)
+                .Take(pageSize);
+            // page results and count
+            var result = new PagedResult<MotorBike>
+            {
+                Data = MotorBikes.AsNoTracking().ToList(),// improve performance of application
+                TotalItems = _db.MotorBikes.Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return View(result);
         }
 
         //Get Method

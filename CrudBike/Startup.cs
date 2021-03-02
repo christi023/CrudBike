@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using CrudBike.MappingProfiles;
 
 namespace CrudBike
 {
@@ -27,7 +29,8 @@ namespace CrudBike
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            // automapper
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<BikeDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             // Identity User and Role
@@ -40,8 +43,10 @@ namespace CrudBike
       /*    services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<BikeDbContext>(); */
 
-
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+
+            // cloudscribe pagination
+            services.AddCloudscribePagination();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -27,7 +27,7 @@ using CrudBike.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1dad9d6bcad617a2e696d47ead5a60964fcb9ac", @"/Views/Model/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e071986a91a2a737147e3da1c944ebe8eef663a0", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"094c0adbd0c1a64b8068e3c3907dc9c6b80e9560", @"/Views/_ViewImports.cshtml")]
     public class Views_Model_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<CrudBike.Models.Model>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-info"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

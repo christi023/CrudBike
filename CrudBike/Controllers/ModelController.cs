@@ -8,6 +8,8 @@ using CrudBike.AppDBContext;
 using CrudBike.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using CrudBike.Controllers.Resources;
+using AutoMapper;
 
 namespace CrudBike.Controllers
 {
@@ -16,13 +18,15 @@ namespace CrudBike.Controllers
     {
         // dependency injection to access our Db Class
         private readonly BikeDbContext _db;
+        private readonly IMapper _mapper;
 
         [BindProperty]
         public ModelViewModel ModelVM { get; set; }
 
-        public ModelController(BikeDbContext db)
+        public ModelController(BikeDbContext db, IMapper mapper) // mapper is passed using dependency injection
         {
             _db = db;
+            _mapper = mapper;
 
             ModelVM = new ModelViewModel()
             {
@@ -47,7 +51,7 @@ namespace CrudBike.Controllers
 
         //  create the post method
         [HttpPost, ActionName("Create")]
-      
+
         public IActionResult CreatePost()
         {
             if (!ModelState.IsValid)
@@ -64,7 +68,7 @@ namespace CrudBike.Controllers
         {
             // This Id we will reciecve from the input parameter of Index page
             ModelVM.Model = _db.Models.Include(m => m.Make).SingleOrDefault(m => m.Id == id);
-            if(ModelVM.Model == null)
+            if (ModelVM.Model == null)
             {
                 return NotFound();
             }
@@ -75,10 +79,10 @@ namespace CrudBike.Controllers
         [HttpPost, ActionName("Edit")]
         public IActionResult EditPost()
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(ModelVM);
-             }
+            }
 
             _db.Update(ModelVM.Model);
             _db.SaveChanges();
@@ -87,10 +91,10 @@ namespace CrudBike.Controllers
 
         // Delete method
         [HttpPost]
-        public IActionResult Delete (int id)
+        public IActionResult Delete(int id)
         {
             Model model = _db.Models.Find(id);
-            if(model == null)
+            if (model == null)
             {
                 return NotFound();
             }
@@ -126,22 +130,15 @@ namespace CrudBike.Controllers
              } */
 
 
-   /*     [AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet("api/models")]
         public IEnumerable<ModelResources> Models()
         {
-            var models = _db.Models.ToList();
-            return _mapper.Map<List<Model>, List<ModelResources>>(models);
-
-            //var modelResources = models
-            //    .Select(m => new ModelResources
-            //    {
-            //        Id = m.Id,
-            //        Name = m.Name
-            //    }).ToList();         
-        }
-
-        */
-
+            var models = _db.Models.ToList(); // get all model list
+           
+               return _mapper.Map<List<Model>, List<ModelResources>>(models);
+              }
     }
+
 }
+

@@ -205,3 +205,8 @@ C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Areas\Identity
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\MotorBike\Index.cshtml.g.cs
 C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\MotorBike\Create.cshtml.g.cs
+C:\Users\hp\source\repos\CrudBike\CrudBike\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\hp\source\repos\CrudBike\CrudBike\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\hp\source\repos\CrudBike\CrudBike\bin\Debug\net5.0\cloudscribe.Pagination.Models.dll
+C:\Users\hp\source\repos\CrudBike\CrudBike\bin\Debug\net5.0\cloudscribe.Web.Pagination.dll
+C:\Users\hp\source\repos\CrudBike\CrudBike\obj\Debug\net5.0\Razor\Views\Shared\_PaginationPartial.cshtml.g.cs

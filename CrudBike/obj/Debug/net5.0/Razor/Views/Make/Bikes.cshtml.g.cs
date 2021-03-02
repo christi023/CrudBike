@@ -27,7 +27,7 @@ using CrudBike.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e53ffc8096c0ddfc3572eed55517a9d4e4f3d792", @"/Views/Make/Bikes.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e071986a91a2a737147e3da1c944ebe8eef663a0", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"094c0adbd0c1a64b8068e3c3907dc9c6b80e9560", @"/Views/_ViewImports.cshtml")]
     public class Views_Make_Bikes : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<CrudBike.Models.Make>
     {
         #line hidden

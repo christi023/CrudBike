@@ -1,6 +1,36 @@
 ﻿@model CrudBike.Models.ViewModels.MotorBikeViewModel
 @using CrudBike.Extensions
 
+<script> // getting the model with the selected makes/ brands in the dropdown list
+
+    $(document).ready(function () {
+        var MakeDDL = $("#Make"); //define variables
+        var ModelDDL = $("#Model");
+        ModelDDL.prop('disabled', true); // disabling the Model dropdowns if no value is selected
+        MakeDDL.change(function () {
+            if ($(this).val() == "0") {
+                ModelDDL.prop('disabled', true);
+                ModelDDL.val("0");
+            }
+            else { // calling endpoint- allow web pages data to run asynchronously 
+                $.ajax({
+                    url: "/api/models/" + $(this).val(),
+                    method: "get", // type of request
+                    success: function (data) {
+                        ModelDDL.prop('disabled', false);
+                        console.log("Success:");
+                        ModelDDL.empty(); // remove all elements from model dropdown
+                        ModelDDL.append($('<option/>', { value: '0', text: '--Select Model--' })); // to add data receive
+                        $(data).each(function (index, item) {// this method is to populate the model dropdown
+                            ModelDDL.append($('<option/>', { value: item.id, text: item.name})); // append the data 
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 <br />
 <h2 class="text-info">Add MotorBike</h2>
 <form method="post" enctype="multipart/form-data"  action="Create">
@@ -10,7 +40,7 @@
             <label asp-for="Makes"></label>
         </div>
         <div class="col-4">
-            <select asp-for="MotorBike.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control"></select>
+            <select asp-for="MotorBike.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control" id="Make"></select>
             <span asp-validation-for="MotorBike.MakeID" class="text-danger"></span>
         </div>
 
@@ -28,7 +58,7 @@
             <label asp-for="Models"></label>
         </div>
         <div class="col-4">
-            <select asp-for="MotorBike.ModelID" asp-items="Model.Models.ToSelectListItem()" class="form-control"></select>
+            <select asp-for="MotorBike.ModelID" asp-items="Model.Models.ToSelectListItem()" class="form-control" id="Model"></select>
             <span asp-validation-for="MotorBike.ModelID" class="text-danger"></span>
         </div>
     </div>

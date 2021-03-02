@@ -100,5 +100,48 @@ namespace CrudBike.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // web api to get Models
+        [AllowAnonymous]
+        [HttpGet("api/models/{MakeID}")]
+        public IEnumerable<Model> Models(int MakeID)
+        {
+            return _db.Models.ToList()
+            .Where(m => m.MakeID == MakeID);
+        }
+
+        /*     [AllowAnonymous]
+             [HttpGet("api/models/{MakeID}")]
+             public IEnumerable<ModelResources> Models(int MakeID)
+             {
+                 var models = _db.Models.ToList();
+                 var modelResources = models
+                     .Select(m => new ModelResources
+                     {
+                         Id = m.Id,
+                         Name = m.Name,
+                         MakeID = m.MakeID
+                     }).ToList()
+                     .Where(m => m.MakeID == MakeID);
+                 return modelResources;
+             } */
+
+
+   /*     [AllowAnonymous]
+        [HttpGet("api/models")]
+        public IEnumerable<ModelResources> Models()
+        {
+            var models = _db.Models.ToList();
+            return _mapper.Map<List<Model>, List<ModelResources>>(models);
+
+            //var modelResources = models
+            //    .Select(m => new ModelResources
+            //    {
+            //        Id = m.Id,
+            //        Name = m.Name
+            //    }).ToList();         
+        }
+
+        */
+
     }
 }

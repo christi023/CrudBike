@@ -96,9 +96,9 @@ namespace CrudBike.Controllers
 
                 // Set the Image path on database
                 SavedMotorBike.ImagePath = RelativeImagePath;
+                _db.SaveChanges();
 
-            }
-            //    var  SavedMotorBike = _db.MotorBikes.Find(MotorBikeID);              
+            }                 
 
             return RedirectToAction(nameof(Index)); // send user to index page 
         }
@@ -128,23 +128,24 @@ namespace CrudBike.Controllers
             _db.Update(ModelVM.Model);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index)); // redirects user to index page
-        }
+        } */
 
         // Delete method
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            Model model = _db.Models.Find(id);
-            if (model == null)
+
+         MotorBike MotorBike  = _db.MotorBikes.Find(id);
+            if (MotorBike == null)
             {
                 return NotFound();
             }
 
-            _db.Models.Remove(model);
+            _db.MotorBikes.Remove(MotorBike);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-        */
+       
 
     }
 }

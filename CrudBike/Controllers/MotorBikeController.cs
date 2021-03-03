@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using cloudscribe.Pagination.Models;
-
+using System.Diagnostics;
+using CrudBike.Helpers;
 
 namespace CrudBike.Controllers
 {
-    [Authorize(Roles = "Admin, Executive")] // Authorizes Admin & Executive for Roles handling
+    [Authorize(Roles = Roles.Admin + "," + Roles.Executive)] // Authorizes Admin & Executive for Roles handling
     public class MotorBikeController : Controller
     {
         // dependency injection to access our Db Class
@@ -39,6 +40,7 @@ namespace CrudBike.Controllers
         }
       
         // Pagination to create pages
+        [AllowAnonymous]
         public IActionResult Index(string searchString, string sortOrder, int pageNumber = 1, int pageSize = 3)
         {
             ViewBag.CurrentSortOrder = sortOrder; // sorting
@@ -83,15 +85,49 @@ namespace CrudBike.Controllers
             return View(result);
         }
 
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            MotorBikeVM.MotorBike = _db.MotorBikes.SingleOrDefault(b => b.Id == id);
+
+            //Filter the models associated to the selected make
+            MotorBikeVM.Models = _db.Models.Where(m => m.MakeID == MotorBikeVM.MotorBike.MakeID);
+
+            if (MotorBikeVM.MotorBike == null)
+            {
+                return NotFound();
+            }
+            return View(MotorBikeVM);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                MotorBikeVM.Makes = _db.Makes.ToList();
+                MotorBikeVM.Models = _db.Models.ToList();
+                return View(MotorBikeVM);
+            }
+            _db.MotorBikes.Update(MotorBikeVM.MotorBike);
+            UploadImageIfAvailable();
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
         //Get Method
         public IActionResult Create()
         {
             return View(MotorBikeVM);
-        }
+        }     
 
         //  Post Method
         [HttpPost, ActionName("Create")]
-
+        [ValidateAntiForgeryToken]
         public IActionResult CreatePost()
         {
             if (!ModelState.IsValid)
@@ -100,9 +136,15 @@ namespace CrudBike.Controllers
                 MotorBikeVM.Models = _db.Models.ToList();
                 return View(MotorBikeVM);
             }
-            _db.MotorBikes.Add(MotorBikeVM.MotorBike);
+            _db.MotorBikes.Add(MotorBikeVM.MotorBike);          
+            UploadImageIfAvailable();
             _db.SaveChanges();
 
+            return RedirectToAction(nameof(Index)); // send user to index page 
+        }
+
+        private void UploadImageIfAvailable()
+        {
             // Save MotorBike Logic =======> Image Upload
 
             // Get MotorBike id we have saved in Database
@@ -137,38 +179,9 @@ namespace CrudBike.Controllers
 
                 // Set the Image path on database
                 SavedMotorBike.ImagePath = RelativeImagePath;
-                _db.SaveChanges();
-
+           //     _db.SaveChanges();
             }
-
-            return RedirectToAction(nameof(Index)); // send user to index page 
-        }
-
-
-        // Edit action
-        /*    public IActionResult Edit(int id)
-            {
-                // This Id we will reciecve from the input parameter of Index page
-                ModelVM.Model = _db.Models.Include(m => m.Make).SingleOrDefault(m => m.Id == id);
-                if (ModelVM.Model == null)
-                {
-                    return NotFound();
-                }
-                return View(ModelVM);
-            }
-            // Edit with the post method
-            [HttpPost, ActionName("Edit")]
-            public IActionResult EditPost()
-            {
-                if (!ModelState.IsValid)
-                {
-                    return View(ModelVM);
-                }
-                _db.Update(ModelVM.Model);
-                _db.SaveChanges();
-                return RedirectToAction(nameof(Index)); // redirects user to index page
-            } 
-        */
+        }    
 
         // Delete method
         [HttpPost]
@@ -184,6 +197,25 @@ namespace CrudBike.Controllers
             _db.MotorBikes.Remove(MotorBike);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
+        }
+        // for anonymous users
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult View(int id)
+        {
+            MotorBikeVM.MotorBike = _db.MotorBikes.SingleOrDefault(b => b.Id == id);
+
+            if (MotorBikeVM.MotorBike == null)
+            {
+                return NotFound();
+            }
+            return View(MotorBikeVM);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
     }  

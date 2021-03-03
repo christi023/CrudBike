@@ -1,18 +1,19 @@
 ﻿@model CrudBike.Models.ViewModels.MotorBikeViewModel
 @using CrudBike.Extensions
 
-<script> // getting the model with the selected makes/ brands in the dropdown list
+<script>
+ // getting the model with the selected makes/ brands in the dropdown list
 
     $(document).ready(function () {
         var MakeDDL = $("#Make"); //define variables
         var ModelDDL = $("#Model");
-        ModelDDL.prop('disabled', true); // disabling the Model dropdowns if no value is selected
+     //   ModelDDL.prop('disabled', true); // disabling the Model dropdowns if no value is selected
         MakeDDL.change(function () {
             if ($(this).val() == "0") {
                 ModelDDL.prop('disabled', true);
                 ModelDDL.val("0");
             }
-            else { // calling endpoint- allow web pages data to run asynchronously 
+            else { // calling endpoint- allow web pages data to run asynchronously
                 $.ajax({
                     url: "/api/models/" + $(this).val(),
                     method: "get", // type of request
@@ -22,7 +23,7 @@
                         ModelDDL.empty(); // remove all elements from model dropdown
                         ModelDDL.append($('<option/>', { value: '0', text: '--Select Model--' })); // to add data receive
                         $(data).each(function (index, item) {// this method is to populate the model dropdown
-                            ModelDDL.append($('<option/>', { value: item.id, text: item.name})); // append the data 
+                            ModelDDL.append($('<option/>', { value: item.id, text: item.name})); // append the data
                         });
                     }
                 });
@@ -32,10 +33,12 @@
 </script>
 
 <br />
-<h2 class="text-info">Add MotorBike</h2>
-<br/> 
+<h2 class="text-info">Edit MotorBike</h2>
+<br/>
 
-<form method="post" enctype="multipart/form-data"  action="Create">
+<form method="post" enctype="multipart/form-data" action="Edit">
+    <input hidden asp-for="MotorBike.Id" />
+    <input hidden asp-for="MotorBike.ImagePath" />
 
     <div class="form-group row">
         <div class="col-2">
@@ -147,7 +150,7 @@
     <br />
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Create" />
+        <input type="submit" class="btn btn-primary" value="Update" />
         <a asp-action="Index" class="btn btn-success">Back</a>
     </div>
 

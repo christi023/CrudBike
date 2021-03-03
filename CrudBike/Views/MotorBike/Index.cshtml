@@ -25,7 +25,11 @@
         <tr class="table-info">
             <th>Photo</th>
             <th>Detail</th>
-            <th>Price</th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewBag.PriceSortParam"
+                   asp-route-pageNumber="@Model.PageNumber"> Price </a>
+            </th>
             <th>Seller Information</th>
             <th></th>
         </tr>

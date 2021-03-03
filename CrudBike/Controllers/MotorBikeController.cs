@@ -33,26 +33,34 @@ namespace CrudBike.Controllers
             MotorBikeVM = new MotorBikeViewModel()
             {
                 Makes = _db.Makes.ToList(),
-               Models = _db.Models.ToList(),
-              MotorBike = new Models.MotorBike()
+                Models = _db.Models.ToList(),
+                MotorBike = new Models.MotorBike()
             };
         }
       
-        public IActionResult Index2()
-        {
-            var MotorBikes = _db.MotorBikes.Include(m => m.Make).Include(m => m.Model);
-
-            return View(MotorBikes.ToList());
-        }
-
         // Pagination to create pages
-           public IActionResult Index(int pageNumber=1, int pageSize=2)
+        public IActionResult Index(string sortOrder, int pageNumber = 1, int pageSize = 3)
         {
+            ViewBag.PriceSortParam = String.IsNullOrEmpty(sortOrder) ? "price_dec" : " ";
             int ExcludeRecords = (pageSize * pageNumber) - pageSize;
 
-            var MotorBikes = _db.MotorBikes.Include(m => m.Make).Include(m => m.Model)
-                .Skip(ExcludeRecords)
-                .Take(pageSize);
+            var MotorBikes = from b in _db.MotorBikes.Include(m => m.Make).Include(m => m.Model)
+                             select b;
+
+            //Sorting Logic
+            switch (sortOrder)
+            {
+                case "price_desc":
+                    MotorBikes = MotorBikes.OrderByDescending(b => b.Price);
+                    break;
+                default:
+                    MotorBikes = MotorBikes.OrderBy(b => b.Price);
+                    break;
+            }
+            MotorBikes = MotorBikes
+                 .Skip(ExcludeRecords)
+                 .Take(pageSize);
+
             // page results and count
             var result = new PagedResult<MotorBike>
             {
@@ -79,7 +87,7 @@ namespace CrudBike.Controllers
             if (!ModelState.IsValid)
             {// validating
                 MotorBikeVM.Makes = _db.Makes.ToList(); // refresh here to get this case if form is submitted without value, we will not get error- Makes + Models
-                MotorBikeVM.Models = _db.Models.ToList(); 
+                MotorBikeVM.Models = _db.Models.ToList();
                 return View(MotorBikeVM);
             }
             _db.MotorBikes.Add(MotorBikeVM.MotorBike);
@@ -99,7 +107,7 @@ namespace CrudBike.Controllers
             // Get reference of DBSet for the MotorBike we have to save in Database
             var SavedMotorBike = _db.MotorBikes.Find(MotorBikeID);
 
-            if(files.Count != 0)
+            if (files.Count != 0)
             {
                 var ImagePath = @"images\MotorBike\";
                 //Extract the extension of submitted file
@@ -121,45 +129,43 @@ namespace CrudBike.Controllers
                 SavedMotorBike.ImagePath = RelativeImagePath;
                 _db.SaveChanges();
 
-            }                 
+            }
 
             return RedirectToAction(nameof(Index)); // send user to index page 
         }
 
-        
-        // Edit action
-    /*    public IActionResult Edit(int id)
-        {
-            // This Id we will reciecve from the input parameter of Index page
-            ModelVM.Model = _db.Models.Include(m => m.Make).SingleOrDefault(m => m.Id == id);
-            if (ModelVM.Model == null)
-            {
-                return NotFound();
-            }
-            return View(ModelVM);
-        }
 
-        // Edit with the post method
-        [HttpPost, ActionName("Edit")]
-        public IActionResult EditPost()
-        {
-            if (!ModelState.IsValid)
+        // Edit action
+        /*    public IActionResult Edit(int id)
             {
+                // This Id we will reciecve from the input parameter of Index page
+                ModelVM.Model = _db.Models.Include(m => m.Make).SingleOrDefault(m => m.Id == id);
+                if (ModelVM.Model == null)
+                {
+                    return NotFound();
+                }
                 return View(ModelVM);
             }
-
-            _db.Update(ModelVM.Model);
-            _db.SaveChanges();
-            return RedirectToAction(nameof(Index)); // redirects user to index page
-        } 
-    */
+            // Edit with the post method
+            [HttpPost, ActionName("Edit")]
+            public IActionResult EditPost()
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(ModelVM);
+                }
+                _db.Update(ModelVM.Model);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index)); // redirects user to index page
+            } 
+        */
 
         // Delete method
         [HttpPost]
         public IActionResult Delete(int id)
         {
 
-         MotorBike MotorBike  = _db.MotorBikes.Find(id);
+            MotorBike MotorBike = _db.MotorBikes.Find(id);
             if (MotorBike == null)
             {
                 return NotFound();
@@ -169,7 +175,6 @@ namespace CrudBike.Controllers
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-       
 
-    }
+    }  
 }

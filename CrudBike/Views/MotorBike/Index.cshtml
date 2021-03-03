@@ -9,6 +9,14 @@
 }
 
 <br />
+<br/>
+<form asp-action="Index" method="get" class="form-inline my-2 my-lg-0" style="margin-right: 12em;">
+  Find Make:  <input class="form-control mr-sm-2" type="text" name="searchString" placeholder="Search" value="@ViewBag.CurrentFilter">
+    <button class="btn btn-info" type="submit"> Search</button> | 
+    <a asp-action="Index"> Remove</a>
+</form>
+<br/>
+<br/>
 
 <div class="row">
     <div class="col-6">
@@ -53,5 +61,5 @@
         }
 
     </table>
-    <partial name="_PaginationPartial" view-data="ViewData"  model="Model" />   
+    <partial name="_PaginationPartial" view-data="ViewData" model="Model" />
 </div>

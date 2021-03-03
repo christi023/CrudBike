@@ -39,13 +39,23 @@ namespace CrudBike.Controllers
         }
       
         // Pagination to create pages
-        public IActionResult Index(string sortOrder, int pageNumber = 1, int pageSize = 3)
+        public IActionResult Index(string searchString, string sortOrder, int pageNumber = 1, int pageSize = 3)
         {
+            ViewBag.CurrentSortOrder = sortOrder; // sorting
+            ViewBag.CurrentFilter = searchString;  // filtering
             ViewBag.PriceSortParam = String.IsNullOrEmpty(sortOrder) ? "price_dec" : " ";
             int ExcludeRecords = (pageSize * pageNumber) - pageSize;
 
             var MotorBikes = from b in _db.MotorBikes.Include(m => m.Make).Include(m => m.Model)
                              select b;
+            var MotorBikeCount = MotorBikes.Count();
+
+            // Filter by Brand /Makes
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                MotorBikes = MotorBikes.Where(b => b.Make.Name.Contains(searchString));
+                 MotorBikeCount = MotorBikes.Count();
+            }
 
             //Sorting Logic
             switch (sortOrder)
@@ -65,7 +75,7 @@ namespace CrudBike.Controllers
             var result = new PagedResult<MotorBike>
             {
                 Data = MotorBikes.AsNoTracking().ToList(),// improve performance of application
-                TotalItems = _db.MotorBikes.Count(),
+                TotalItems = MotorBikeCount,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };

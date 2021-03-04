@@ -1,13 +1,16 @@
 ﻿@model CrudBike.Models.ViewModels.MotorBikeViewModel
 @using CrudBike.Extensions
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <script>
- // getting the model with the selected makes/ brands in the dropdown list
-
+    // getting the model with the selected makes/ brands in the dropdown list
     $(document).ready(function () {
         var MakeDDL = $("#Make"); //define variables
         var ModelDDL = $("#Model");
-     //   ModelDDL.prop('disabled', true); // disabling the Model dropdowns if no value is selected
+        //   ModelDDL.prop('disabled', true); // disabling the Model dropdowns if no value is selected
         MakeDDL.change(function () {
             if ($(this).val() == "0") {
                 ModelDDL.prop('disabled', true);
@@ -23,7 +26,7 @@
                         ModelDDL.empty(); // remove all elements from model dropdown
                         ModelDDL.append($('<option/>', { value: '0', text: '--Select Model--' })); // to add data receive
                         $(data).each(function (index, item) {// this method is to populate the model dropdown
-                            ModelDDL.append($('<option/>', { value: item.id, text: item.name})); // append the data
+                            ModelDDL.append($('<option/>', { value: item.id, text: item.name })); // append the data
                         });
                     }
                 });
@@ -34,9 +37,9 @@
 
 <br />
 <h2 class="text-info">Edit MotorBike</h2>
-<br/>
+<br />
 
-<form method="post" enctype="multipart/form-data" action="Edit">
+<form method="post" enctype="multipart/form-data" action="Edit" style="color: white;">
     <input hidden asp-for="MotorBike.Id" />
     <input hidden asp-for="MotorBike.ImagePath" />
 

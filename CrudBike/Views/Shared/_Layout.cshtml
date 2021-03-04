@@ -7,6 +7,7 @@
     <title>@ViewData["Title"]- CrudBike</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/home.css" />
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
@@ -22,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" asp-controller="MotorBike" asp-action="Index" >Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" asp-controller="Home" asp-action="Index" >Home <span class="sr-only">(current)</span></a>
                     </li>
                     @if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Executive))
                     {
@@ -34,16 +35,15 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-controller="Make" asp-action="Index">Brand</a>
                                 <a class="dropdown-item" asp-controller="Model" asp-action="Index">Models</a>
-                                <a class="dropdown-item" asp-controller="MotorBike" asp-action="Index">MotorBikes</a>
+                                <a class="dropdown-item" asp-controller="MotorBike" asp-action="Index">Bikes</a>
                                 @if (User.IsInRole(Roles.Admin))
                                 {
-                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Add User</a>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Add User</a> 
                                 }
                             </div>
                         </li>
                     }
-                </ul>
-               
+                </ul>               
 
                 <partial name="_LoginPartial" />
 
@@ -52,7 +52,7 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container">       
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

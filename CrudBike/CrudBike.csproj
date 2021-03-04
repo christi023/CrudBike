@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\MotorBike\bike9.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Automapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="cloudscribe.Pagination.Models" Version="1.1.0" />
@@ -21,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\MotorBike\" />
+    <None Include="wwwroot\images\bike10.jpeg" />
+    <None Include="wwwroot\images\MotorBike\bike9.jpeg" />
   </ItemGroup>
 
 </Project>

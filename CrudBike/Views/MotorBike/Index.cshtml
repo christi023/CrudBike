@@ -1,12 +1,7 @@
 ﻿@model cloudscribe.Pagination.Models.PagedResult<MotorBike>
-@using CrudBike.Helpers
-@{
-    ViewData["Title"] = "Index";
-    ViewData["Controller"] = "MotorBike";
-    ViewData["Action"] = "Index";
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@using CrudBike.Helpers
+
 
 <br />
 <br />
@@ -19,7 +14,7 @@
 <br />
 <br />
 
-<div class="row">
+<div class="row" style="color: white;">
     <div class="col-6">
         <h2 class="text-info">MotorBikes</h2>
     </div>
@@ -32,8 +27,8 @@
 
     <br />
 
-    <div class="col-12">
-        <table class="table table-striped border">
+    <div class="col-12" style="color: white;">
+        <table class="table table-striped border" style="color: white;">
             <tr class="table-info">
                 <th>Photo</th>
                 <th>Detail</th>

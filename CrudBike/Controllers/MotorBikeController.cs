@@ -38,7 +38,7 @@ namespace CrudBike.Controllers
                 MotorBike = new Models.MotorBike()
             };
         }
-      
+
         // Pagination to create pages
         [AllowAnonymous]
         public IActionResult Index(string searchString, string sortOrder, int pageNumber = 1, int pageSize = 3)
@@ -56,7 +56,7 @@ namespace CrudBike.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 MotorBikes = MotorBikes.Where(b => b.Make.Name.Contains(searchString));
-                 MotorBikeCount = MotorBikes.Count();
+                MotorBikeCount = MotorBikes.Count();
             }
 
             //Sorting Logic
@@ -84,8 +84,8 @@ namespace CrudBike.Controllers
 
             return View(result);
         }
-
-
+        // Edit action
+     
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -117,13 +117,13 @@ namespace CrudBike.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+       
 
         //Get Method
         public IActionResult Create()
         {
             return View(MotorBikeVM);
-        }     
+        }
 
         //  Post Method
         [HttpPost, ActionName("Create")]
@@ -136,7 +136,7 @@ namespace CrudBike.Controllers
                 MotorBikeVM.Models = _db.Models.ToList();
                 return View(MotorBikeVM);
             }
-            _db.MotorBikes.Add(MotorBikeVM.MotorBike);          
+            _db.MotorBikes.Add(MotorBikeVM.MotorBike);
             UploadImageIfAvailable();
             _db.SaveChanges();
 
@@ -179,9 +179,9 @@ namespace CrudBike.Controllers
 
                 // Set the Image path on database
                 SavedMotorBike.ImagePath = RelativeImagePath;
-           //     _db.SaveChanges();
+                //     _db.SaveChanges();
             }
-        }    
+        }
 
         // Delete method
         [HttpPost]
@@ -218,5 +218,5 @@ namespace CrudBike.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-    }  
+    }
 }

@@ -1,7 +1,13 @@
 ﻿@model CrudBike.Models.ViewModels.MotorBikeViewModel
 @using CrudBike.Extensions
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<script> // getting the model with the selected makes/ brands in the dropdown list
+
+<script>
+    // getting the model with the selected makes/ brands in the dropdown list
 
     $(document).ready(function () {
         var MakeDDL = $("#Make"); //define variables
@@ -12,7 +18,7 @@
                 ModelDDL.prop('disabled', true);
                 ModelDDL.val("0");
             }
-            else { // calling endpoint- allow web pages data to run asynchronously 
+            else { // calling endpoint- allow web pages data to run asynchronously
                 $.ajax({
                     url: "/api/models/" + $(this).val(),
                     method: "get", // type of request
@@ -22,7 +28,7 @@
                         ModelDDL.empty(); // remove all elements from model dropdown
                         ModelDDL.append($('<option/>', { value: '0', text: '--Select Model--' })); // to add data receive
                         $(data).each(function (index, item) {// this method is to populate the model dropdown
-                            ModelDDL.append($('<option/>', { value: item.id, text: item.name})); // append the data 
+                            ModelDDL.append($('<option/>', { value: item.id, text: item.name })); // append the data
                         });
                     }
                 });
@@ -33,11 +39,11 @@
 
 <br />
 <h2 class="text-info">Add MotorBike</h2>
-<br/> 
+<br />
 
-<form method="post" enctype="multipart/form-data"  action="Create">
+<form method="post" enctype="multipart/form-data" action="Create" style="color: white;">
 
-    <div class="form-group row">
+    <div class="form-group row" style="color: white;">
         <div class="col-2">
             <label asp-for="Makes"></label>
         </div>
@@ -55,7 +61,7 @@
 
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" style="color: white;">
         <div class="col-2">
             <label asp-for="Models"></label>
         </div>

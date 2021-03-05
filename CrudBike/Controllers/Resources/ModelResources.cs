@@ -11,6 +11,6 @@ namespace CrudBike.Controllers.Resources
 
         public string Name { get; set; }
 
-        public int MakeID { get; set; }
+     //   public int MakeID { get; set; }
     }
 }
